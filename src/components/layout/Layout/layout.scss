@@ -1,0 +1,14 @@
+.layout-wrapper {
+    height: calc(100vh - var(--h-header));
+    position: relative; 
+    overflow: hidden; 
+    width: 100%;
+
+    .layout-inner {
+        position: absolute;
+        inset: 0px;
+        overflow: scroll;
+        margin-right: 0px;
+        margin-bottom: 0px;
+    }
+}
