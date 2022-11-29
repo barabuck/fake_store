@@ -1,0 +1,16 @@
+.page-categories {
+    padding: 30px;
+
+    .categories-title {
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .categories-items {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+}

@@ -1,0 +1,113 @@
+.app-product-modal {
+
+    .product-modal-wrapper {
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
+
+        .product-modal-image {
+            display: flex;
+            justify-content: center;
+            width: 50%;
+            height: 400px;
+            background: var(--c-bg-block-active);
+            align-items: center;
+            border-radius: 4px;
+    
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+
+            .product-modal-skeleton {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .product-modal-info {
+            display: flex;      
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 6px;
+            width: 50%;
+
+            .product-modal-title {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+
+                .product-modal-text {
+                    font-weight: 700;
+                    font-size: 20px;
+                    line-height: 24px;
+
+                    .product-modal-skeleton {
+                        height: 20px;
+                        width: 150px;
+                    }
+                }
+
+                .product-modal-data {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+    
+                    .product-modal-rate {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        gap: 2px;
+
+                        .product-modal-skeleton {
+                            height: 20px;
+                            width: 50px;
+                        }
+                    }
+
+                    .product-modal-price {
+                        .product-modal-skeleton {
+                            height: 20px;
+                            width: 50px;
+                        }
+                    }
+                }
+            }
+
+            .product-modal-descriprion {
+
+                .product-modal-skeleton {
+                    height: 20px;
+                    width: 150px;
+                }
+            }
+
+            .product-modal-count {
+
+                .product-modal-skeleton {
+                    height: 20px;
+                    width: 50px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .app-product-modal {
+
+        .product-modal-wrapper {
+            flex-direction: column;
+
+            .product-modal-image {
+                height: 400px;
+                width: 100%;
+            }
+
+            .product-modal-info {
+                width: 100%;
+            }
+        }
+    }
+}
