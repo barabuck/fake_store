@@ -1,20 +1,21 @@
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { categoryStore, productStore } from '../../store';
+import config from '../../config';
+import { IFilter, ISelectOption } from '../../models';
 import Filters from '../../components/Filters/Filters';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import ProductModal from '../../components/ProductModal/ProductModal';
+import ErrorScreen from '../../components/layout/ErrorScreen/ErrorScreen';
 
 import './products.scss';
-import { IFilter, ISelectOption } from '../../models';
-import config from '../../config';
-import ErrorScreen from '../../components/layout/ErrorScreen/ErrorScreen';
 
 const Products = observer(() => {
     const { products, product, isLoadingProducts, errorProduct } = productStore;
     const { categories } = categoryStore;
     const [curProduct, setCurProduct] = useState<string>('');
     const [filter, setFilter] = useState<IFilter>({ category: 'all', sort: config.sort[0].value });
+    const [search, setSearch] = useState<string>('');
 
     useEffect(() => {
         if (!categories) {
@@ -48,6 +49,7 @@ const Products = observer(() => {
     const changeFilters = (obj: IFilter) => {
         if (obj.category !== filter.category || obj.sort !== filter.sort) {
             setFilter(obj);
+            setSearch('');
         }
     };
 
@@ -55,9 +57,15 @@ const Products = observer(() => {
         const cards: ReactNode[] = [];
         if (products) {
             products.forEach((card) => {
-                cards.push(
-                    <ProductCard onClick={(id) => setCurProduct(id)} key={card.id} data={card} />
-                );
+                if (card.title.toLowerCase().includes(search.toLowerCase())) {
+                    cards.push(
+                        <ProductCard
+                            onClick={(id) => setCurProduct(id)}
+                            key={card.id}
+                            data={card}
+                        />
+                    );
+                }
             });
         }
         return cards;
@@ -79,7 +87,12 @@ const Products = observer(() => {
 
     return (
         <div className="page-products">
-            <Filters categories={mempizedCategories} onChange={changeFilters} />
+            <Filters
+                categories={mempizedCategories}
+                onChange={changeFilters}
+                valueSearch={search}
+                onChangeSearch={setSearch}
+            />
             {errorProduct && !products && <ErrorScreen className="products-error" />}
             {isLoadingProducts ? renderProductsSkeleton() : renderProducts()}
             {curProduct && (
