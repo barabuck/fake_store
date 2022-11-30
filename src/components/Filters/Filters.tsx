@@ -10,11 +10,13 @@ const optionsSort = config.sort;
 
 interface Props {
     categories?: ISelectOption[];
+    valueSearch?: string;
+    onChangeSearch?: (text: string) => void;
     onChange?: (obj: IFilter) => void;
 }
 
 const Filters = (props: Props) => {
-    const { categories, onChange } = props;
+    const { categories, valueSearch, onChangeSearch, onChange } = props;
     const [sort, setSort] = useState<string>(optionsSort[0].value);
     const [category, setCategory] = useState<string>('');
 
@@ -39,7 +41,7 @@ const Filters = (props: Props) => {
                 <Select options={categories || []} value={category} onChange={changeCategory} />
             </div>
             <div className="filters-search">
-                <Input />
+                <Input value={valueSearch} onChange={onChangeSearch} />
             </div>
             <div className="filters-sort">
                 <div className="filters-sort-text">Sort:</div>

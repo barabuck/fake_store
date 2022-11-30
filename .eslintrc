@@ -27,6 +27,7 @@
   "rules": {
     "no-param-reassign": 0,
     "one-var": 0,
+    "no-restricted-globals": ["error", "event", "fdescribe"],
     "no-underscore-dangle": 0,
     "react-hooks/exhaustive-deps": "off",
     "react/prop-types": 0,
