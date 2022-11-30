@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { IProduct } from '../models';
+import { IFilter, IProduct } from '../models';
 import { ProductService } from '../services';
 
 interface Product {
@@ -52,23 +52,21 @@ class ProductStore implements Product {
             this.setProduct(response.data);
             this.setError(null);
         } catch (error: any) {
-            if (error && error?.response && error?.response?.data) {
-                this.setError(error.response.data);
-            }
+            this.setError(error);
+            this.setProduct(null);
         }
         this.setIsLoadingProduct(false);
     }
 
-    async getProducts() {
+    async getProducts(filter: IFilter) {
         this.setIsLoadingProducts(true);
         try {
-            const response = await ProductService.getProducts();
+            const response = await ProductService.getProducts(filter);
             this.setProducts(response.data);
             this.setError(null);
         } catch (error: any) {
-            if (error && error?.response && error?.response?.data) {
-                this.setError(error.response.data);
-            }
+            this.setError(error);
+            this.setProducts(null);
         }
         this.setIsLoadingProducts(false);
     }

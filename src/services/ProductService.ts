@@ -1,13 +1,19 @@
 import { AxiosResponse } from 'axios';
+import config from '../config';
 import api from '../http';
-import { IProduct } from '../models';
+import { IFilter, IProduct } from '../models';
 
 export default class ProductService {
     static async getProduct(id: string): Promise<AxiosResponse<IProduct>> {
         return api.get(`/products/${id}`);
     }
 
-    static async getProducts(): Promise<AxiosResponse<IProduct[]>> {
-        return api.get(`/products?limit=50`);
+    static async getProducts(filter: IFilter): Promise<AxiosResponse<IProduct[]>> {
+        return api.get(
+            filter.category !== 'all' ? `/products/category/${filter.category}` : '/products',
+            {
+                params: { sort: filter.sort, limit: config.limit },
+            }
+        );
     }
 }

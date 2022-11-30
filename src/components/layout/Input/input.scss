@@ -1,0 +1,28 @@
+.app-input {
+    width: 100%;
+    padding: 10px 20px;
+    display: inline-block;
+    border: 1px solid var(--c-bg-block);
+    border-radius: 4px;
+    box-sizing: border-box;
+    background: var(--c-bg-block);
+    color: var(--c-text);
+
+    &:focus {
+        outline: none !important;
+        border-color: var(--c-bg-block-active);
+    }
+
+    &:placeholder {
+        color: var(--c-bg-block-active);
+        opacity: 1;
+    }
+    
+    :-ms-input-placeholder {
+        color: var(--c-bg-block-active);
+    }
+    
+    ::-ms-input-placeholder {
+        color: var(--c-bg-block-active);
+    }
+}

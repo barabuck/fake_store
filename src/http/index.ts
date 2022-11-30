@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
+import config from '../config';
 
-export const API_URL = 'https://fakestoreapi.com';
+export const API_URL = config.apiUrl;
 
 const api = axios.create({
     baseURL: API_URL,

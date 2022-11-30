@@ -7,7 +7,8 @@
     .layout-inner {
         position: absolute;
         inset: 0px;
-        overflow: scroll;
+        overflow-y: auto;
+        overflow-x: hidden;
         margin-right: 0px;
         margin-bottom: 0px;
     }
