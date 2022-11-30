@@ -5,6 +5,10 @@
         flex-direction: row;
         gap: 6px;
 
+        .product-modal-error {
+            height: 200px;
+        }
+
         .product-modal-image {
             display: flex;
             justify-content: center;

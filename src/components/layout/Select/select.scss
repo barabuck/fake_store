@@ -1,0 +1,19 @@
+.app-select {
+    padding: 10px 0;
+    width: max-content;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 150ms ease;
+    color: var(--c-text);
+
+    &:focus {
+        outline: none
+    }
+
+    option {
+        background: var(--c-bg-block);
+    }
+}

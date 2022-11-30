@@ -25,6 +25,7 @@
     }
   },
   "rules": {
+    "no-param-reassign": 0,
     "one-var": 0,
     "no-underscore-dangle": 0,
     "react-hooks/exhaustive-deps": "off",

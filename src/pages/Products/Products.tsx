@@ -1,25 +1,55 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import { observer } from 'mobx-react-lite';
+import { categoryStore, productStore } from '../../store';
+import Filters from '../../components/Filters/Filters';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import { productStore } from '../../store';
 import ProductModal from '../../components/ProductModal/ProductModal';
 
 import './products.scss';
-import Filters from '../../components/Filters/Filters';
+import { IFilter, ISelectOption } from '../../models';
+import config from '../../config';
+import ErrorScreen from '../../components/layout/ErrorScreen/ErrorScreen';
 
 const Products = observer(() => {
-    const { products, product, isLoadingProducts } = productStore;
+    const { products, product, isLoadingProducts, errorProduct } = productStore;
+    const { categories } = categoryStore;
     const [curProduct, setCurProduct] = useState<string>('');
+    const [filter, setFilter] = useState<IFilter>({ category: 'all', sort: config.sort[0].value });
 
     useEffect(() => {
-        productStore.getProducts();
+        if (!categories) {
+            categoryStore.getCategories();
+        }
     }, []);
+
+    useEffect(() => {
+        productStore.setError(null);
+        if (filter.category && filter.sort) {
+            productStore.getProducts(filter);
+        }
+    }, [filter]);
 
     useEffect(() => {
         if (curProduct) {
             productStore.getProduct(curProduct);
         }
     }, [curProduct]);
+
+    const mempizedCategories: ISelectOption[] = useMemo(() => {
+        const categoriesArr: ISelectOption[] = [{ label: 'all', value: 'all' }];
+        if (categories) {
+            categories.forEach((item) => {
+                categoriesArr.push({ label: item, value: item });
+            });
+        }
+        return categoriesArr;
+    }, [categories]);
+
+    const changeFilters = (obj: IFilter) => {
+        if (obj.category !== filter.category || obj.sort !== filter.sort) {
+            setFilter(obj);
+        }
+    };
 
     const renderProducts = (): ReactNode[] => {
         const cards: ReactNode[] = [];
@@ -44,14 +74,21 @@ const Products = observer(() => {
     const closeModal = () => {
         setCurProduct('');
         productStore.setProduct(null);
+        productStore.setError(null);
     };
 
     return (
         <div className="page-products">
-            <Filters />
+            <Filters categories={mempizedCategories} onChange={changeFilters} />
+            {errorProduct && !products && <ErrorScreen className="products-error" />}
             {isLoadingProducts ? renderProductsSkeleton() : renderProducts()}
             {curProduct && (
-                <ProductModal data={product} visible={!!curProduct} onClose={closeModal} />
+                <ProductModal
+                    error={!!errorProduct}
+                    data={product}
+                    visible={!!curProduct}
+                    onClose={closeModal}
+                />
             )}
         </div>
     );

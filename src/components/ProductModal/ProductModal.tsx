@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { rate } from '../../icons';
 import { IProduct } from '../../models';
+import ErrorScreen from '../layout/ErrorScreen/ErrorScreen';
 import Modal from '../layout/Modal/Modal';
 import Skeleton from '../layout/Skeleton/Skeleton';
 
@@ -10,11 +11,12 @@ interface Props {
     visible?: boolean;
     loading?: boolean;
     data: IProduct | null;
+    error?: boolean;
     onClose?: () => void;
 }
 
 const ProductModal = (props: Props) => {
-    const { visible, loading, data, onClose } = props;
+    const { visible, loading, data, error, onClose } = props;
 
     const renderProduct = (): ReactNode => {
         return (
@@ -74,7 +76,8 @@ const ProductModal = (props: Props) => {
     return (
         <Modal className="app-product-modal" visible={visible} onClose={onClose}>
             <div className="product-modal-wrapper">
-                {loading || !data ? renderSkeleton() : renderProduct()}
+                {error && <ErrorScreen className="product-modal-error" />}
+                {!error && (loading || !data ? renderSkeleton() : renderProduct())}
             </div>
         </Modal>
     );
