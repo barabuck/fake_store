@@ -6,11 +6,9 @@ const config = {
     limit: '50',
 
     sort: [
-        { label: 'Cheap first', value: 'DESK' },
-        { label: 'Expensive first', value: 'ASK' },
+        { label: 'low first', value: 'DESK' },
+        { label: 'high first', value: 'ASK' },
     ],
 };
 
 export default Object.freeze({ ...config });
-
-// workbox-window workbox-core workbox-expiration workbox-precaching workbox-routing workbox-strategies workbox-cacheable-response
