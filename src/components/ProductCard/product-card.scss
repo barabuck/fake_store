@@ -80,3 +80,17 @@
         }
     }
 }
+
+@media all and (max-width: 650px) {
+    .app-product-card {
+        width: 150px;
+        height: 240px;
+
+        .product-card-image {
+
+            img {
+                height: 140px;
+            }
+        }
+    }
+}

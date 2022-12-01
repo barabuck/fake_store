@@ -40,7 +40,7 @@
       }
       
       input:checked ~ .slider::before {
-        transform: translateX(30px);
+        transform: translateX(27px);
         background-color: black;
         box-shadow: none;
     }
