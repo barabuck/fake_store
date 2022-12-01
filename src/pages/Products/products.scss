@@ -10,3 +10,9 @@
         height: 200px;
     }
 }
+
+@media all and (max-width: 650px) {
+    .page-products {
+        gap: 10px;
+    }
+}
